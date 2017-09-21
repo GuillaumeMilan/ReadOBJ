@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1487866355 source:c:\users\user_max\documents\programmation\c c++\cour opengl\minijeu\main.c
+	<windows.h>
+	<gl/gl.h>
+	<stdio.h>
+	<ctime>
+	<cmath>
+	<gl/glu.h>
+	"ReadOBJ.h"
+	"sdlglutils.h"
+	"textures.h"
+
+1487771536 source:c:\users\user_max\documents\programmation\c c++\cour opengl\minijeu\readobj.c
+	<windows.h>
+	<gl/gl.h>
+	<stdio.h>
+	"ReadOBJ.h"
+	<vector>
+	<string.h>
+
+1487764072 c:\users\user_max\documents\programmation\c c++\cour opengl\minijeu\readobj.h
+
+1487698841 c:\users\user_max\documents\programmation\c c++\cour opengl\minijeu\sdlglutils.h
+	<GL/gl.h>
+	<SDL/SDL.h>
+
+1487698835 source:c:\users\user_max\documents\programmation\c c++\cour opengl\minijeu\sdlglutils.cpp
+	"sdlglutils.h"
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+	<GL/glu.h>
+	<cstring>
+	<cstdlib>
+
+1487771416 c:\users\user_max\documents\programmation\c c++\cour opengl\minijeu\textures.h
+	<gl/gl.h>
+	<gl/glu.h>
+	<stdio.h>
+	<stdlib.h>
+
+1487771422 source:c:\users\user_max\documents\programmation\c c++\cour opengl\minijeu\textures.c
+	"textures.h"
+
+1487703888 source:c:\users\user_max\documents\programmation\c c++\cour opengl\minijeu\tex.c
+	"tex.h"
+
+1487703966 c:\users\user_max\documents\programmation\c c++\cour opengl\minijeu\tex.h
+
