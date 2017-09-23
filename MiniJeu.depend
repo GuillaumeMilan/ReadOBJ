@@ -323,3 +323,33 @@
 1301114764 c:\program files (x86)\codeblocks\mingw\include\gl\glext.h
 	<windows.h>
 
+1506166646 source:c:\users\utilisateur\documents\prog\readobj\src\main.cpp
+	<windows.h>
+	<gl/gl.h>
+	<stdio.h>
+	<ctime>
+	<cmath>
+	<gl/glu.h>
+	<GLFW/glfw3.h>
+	"../include/ReadObjLib/ReadOBJ.h"
+	"../include/texLib/textures.h"
+
+1506031640 c:\users\utilisateur\documents\prog\readobj\include\readobjlib\readobj.h
+
+1506031640 c:\users\utilisateur\documents\prog\readobj\include\texlib\textures.h
+	<gl/gl.h>
+	<gl/glu.h>
+	<stdio.h>
+	<stdlib.h>
+
+1506166741 source:c:\users\utilisateur\documents\prog\readobj\src\readobjlib\readobj.cpp
+	<windows.h>
+	<gl/gl.h>
+	<stdio.h>
+	"../../include/ReadObjLib/ReadOBJ.h"
+	<vector>
+	<string.h>
+
+1506166901 source:c:\users\utilisateur\documents\prog\readobj\src\texlib\textures.cpp
+	"../../include/texLib/textures.h"
+
