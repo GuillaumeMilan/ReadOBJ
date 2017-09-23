@@ -30,14 +30,14 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/include" />
 		</Compiler>
 		<Linker>
+			<Add library="glfw3" />
 			<Add library="opengl32" />
 			<Add library="glu32" />
 			<Add library="gdi32" />
-			<Add library="..\..\Bibliothèque\SDL-1.2.15\lib\libSDLmain.a" />
-			<Add library="..\..\Bibliothèque\SDL-1.2.15\lib\libSDL.dll.a" />
-			<Add library="..\..\Bibliothèque\SDL_image-1.2.12\lib\x86\SDL_image.lib" />
+			<Add directory="C:/Program Files (x86)/CodeBlocks/MinGW/lib" />
 		</Linker>
 		<Unit filename="ReadOBJ.c">
 			<Option compilerVar="CPP" />
@@ -46,8 +46,6 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CPP" />
 		</Unit>
-		<Unit filename="sdlglutils.cpp" />
-		<Unit filename="sdlglutils.h" />
 		<Unit filename="textures.c">
 			<Option compilerVar="CPP" />
 		</Unit>
