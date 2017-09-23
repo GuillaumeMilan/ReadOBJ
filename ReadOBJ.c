@@ -285,8 +285,8 @@ GLuint creatList(char *fname)
             }
         }
     }
-    glEndList();
     glEnd();
+    glEndList();
     printf("FINI\n");
     return shapeList;
 }

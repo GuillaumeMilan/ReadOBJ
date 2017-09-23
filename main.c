@@ -4,8 +4,13 @@
 #include <ctime>
 #include <cmath>
 #include <gl/glu.h>
+#include <GLFW/glfw3.h>
+#ifndef GL_MULTISAMPLE
+#define GL_MULTISAMPLE  0x809D
+#endif
+
 #include "ReadOBJ.h"
-#include "sdlglutils.h"
+//#include "sdlglutils.h"
 #include "textures.h"
 #define ALPHA 5.0/180.0
 
@@ -40,7 +45,6 @@ int WINAPI WinMain(HINSTANCE hInstance,
     HGLRC hRC;
     MSG msg;
     BOOL bQuit = FALSE;
-    float theta = 0.0f;
     float direction =0.0f;
     /* register window class */
     wcex.cbSize = sizeof(WNDCLASSEX);
@@ -61,6 +65,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
         return 0;
 
     /* create main window */
+    glfwWindowHint(GLFW_SAMPLES, 4);
     hwnd = CreateWindowEx(0,
                           "GLSample",
                           "OpenGL Sample",
@@ -83,6 +88,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
     glEnable (GL_LIGHTING);
     glEnable (GL_LIGHT0);
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_MULTISAMPLE);
+
     /* Compile GL List */
     GLuint tie = creatList("starwars-tie-fighter.obj");
     GLuint xwing = creatList("star-wars-x-wing.obj");
@@ -93,10 +100,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
     /* program main loop */
     while (!bQuit)
     {
-        /* check for messages */
+        // check for messages
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) //gestion des messages
         {
-            /* handle or dispatch messages */
+            // handle or dispatch messages
             GLfloat dx = directionX;
             GLfloat dy = directionY;
             GLfloat dz = directionZ;
@@ -213,8 +220,8 @@ int WINAPI WinMain(HINSTANCE hInstance,
                 DispatchMessage(&msg);
                 break;
             }
-        }
-        else //affichage
+        } /*if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))*/
+        else /*Printing*/
         {
             /* OpenGL animation code goes here */
             glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -225,43 +232,14 @@ int WINAPI WinMain(HINSTANCE hInstance,
             gluPerspective (60.0, 250/(float)250, 0.1, 500.0);
             glMatrixMode(GL_MODELVIEW);
             glLoadIdentity();
+            /* Put the camera in the correct position after moving */
 			gluLookAt(eyeX,eyeY,eyeZ,eyeX+directionX,eyeY+directionY,eyeZ+directionZ,upX,upY,upZ);
-            //origin
-            /*glPointSize(2.0);
-            glPushMatrix();
-            glBegin(GL_POINTS);
-                glColor3f(1.0f,0.0f,0.0f);
-                glVertex3f(0.0f,0.0f,0.0f);
-            glEnd();
-            glPopMatrix();
-            //triangle
-            glPushMatrix();
-            glRotatef(theta, 1.0f, 0.0f, 0.0f);
 
-            glBegin(GL_TRIANGLES);
-
-                glColor3f(1.0f, 0.0f, 0.0f);   glVertex3f(0.0f,   1.0f, 0.0f);
-                glColor3f(0.0f, 1.0f, 0.0f);   glVertex3f(0.87f,  -0.5f, 0.0f);
-                glColor3f(0.0f, 0.0f, 1.0f);   glVertex3f(-0.87f, -0.5f, 0.0f);
-
-            glEnd();
-            glPopMatrix();*/
-            //glPushMatrix();
             glPushMatrix();
             glRotated(45,0,0,1);
             glTranslated(0,0,50);
             glBindTexture(GL_TEXTURE_2D,texture1);
             glCallList(xwing); //ICI
-            //glPopMatrix();
-            /*glBegin(GL_QUADS);
-            {
-                glColor3f(1.0f,1.0f,0.0f);
-                glVertex3f(-1.0f,-1.0f,0.0f);
-                glVertex3f(1.0f,-1.0f,0.0f);
-                glColor3f(1.0f,0.0f,0.0f);
-                glVertex3f(1.0f,1.0f,0.0f);
-                glVertex3f(-1.0f,1.0f,0.0f);
-            }*/
             glEnd();
             glPopMatrix();
                 glColor3d(1,1,1);
@@ -275,58 +253,9 @@ int WINAPI WinMain(HINSTANCE hInstance,
                 glEnable(GL_LIGHTING);
             glBindTexture(GL_TEXTURE_2D,texture1);
             glCallList(tie); //ICI
-            glLineWidth(1.0);
-            glBegin(GL_LINES);
-                glColor3f(1.0f,0.0f,0.0f);
-                glVertex3f(0.0f,0.0f,0.0f);
-                glVertex3f(1.0f,0.0f,0.0f);
-
-                glColor3f(0.0f,1.0f,0.0f);
-                glVertex3f(0.0f,0.0f,0.0f);
-                glVertex3f(0.0f,1.0f,0.0f);
-
-                glColor3f(0.0f,0.0f,1.0f);
-                glVertex3f(0.0f,0.0f,0.0f);
-                glVertex3f(0.0f,0.0f,1.0f);
-            glEnd();
-            glLineWidth(2.0);
-            glBegin(GL_LINES);
-                glColor3f(1.0f,0.0f,0.0f);
-                glVertex3f(eyeX+1.0*directionX,eyeY+1.0*directionY,eyeZ+1.0*directionZ);
-                glVertex3f(eyeX+2.0*directionX,eyeY+2.0*directionY,eyeZ+2.0*directionZ);
-
-                glColor3f(0.0f,1.0f,0.0f);
-                glVertex3f(eyeX+1.0*directionX,eyeY+1.0*directionY,eyeZ+1.0*directionZ);
-                glVertex3f(eyeX+1.0*directionX+upX,eyeY+1.0*directionY+upY,eyeZ+1.0*directionZ+upZ);
-
-                glColor3f(0.0f,0.0f,1.0f);
-                glVertex3f(eyeX+1.0*directionX,eyeY+1.0*directionY,eyeZ+1.0*directionZ);
-                glVertex3f(eyeX+1.0*directionX+droiteX,eyeY+1.0*directionY+droiteY,eyeZ+1.0*directionZ+droiteZ);
-
-                /*glColor3f(1.0f,0.0f,0.0f);
-                glVertex3f(eyeX+0.1*directionX,eyeY+0.1*directionY,eyeZ+0.1*directionZ);
-                glVertex3f(eyeX+1.0+0.1*directionX,eyeY+0.1*directionY,eyeZ+0.1*directionZ);
-
-                glColor3f(0.0f,1.0f,0.0f);
-                glVertex3f(eyeX+0.1*directionX,eyeY+0.1*directionY,eyeZ+0.1*directionZ);
-                glVertex3f(eyeX+0.1*directionX,eyeY+1.0+0.1*directionY,eyeZ+0.1*directionZ);
-
-                glColor3f(0.0f,0.0f,1.0f);
-                glVertex3f(eyeX+0.1*directionX,eyeY+0.1*directionY,eyeZ+0.1*directionZ);
-                glVertex3f(eyeX+0.1*directionX,eyeY+0.1*directionY,eyeZ+1.0+0.1*directionZ);*/
-            glEnd();
-            glPointSize(5.0);
-            glBegin(GL_POINTS);
-                glColor3f(1.0f,0.0f,0.0f);
-                glVertex3f(-1.0f,0.0f,0.0f);
-            glEnd();
-
-
             SwapBuffers(hDC);
-
-            theta += direction*1.0f;
-            Sleep (1);
-        }
+        } /*else if(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))*/
+        Sleep(1);
     }
 
     /* shutdown OpenGL */
